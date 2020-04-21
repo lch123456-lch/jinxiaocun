@@ -1,0 +1,22 @@
+<html  xmlns:th="http://www.thymeleaf.org">
+    <head th:include="include/admin/adminHeader::html('首页')"></head>
+    <body>
+    <style>
+        #title{
+            position: absolute;
+            top: 300px;
+            left: 50%;
+            /*color:lightslategray;*/
+            animation: change 3s linear 0s infinite;
+            font-size: 35px;
+        }
+        @keyframes change {
+            0% {color: #333;}
+            50% {color: #f60;}
+            100% {color: #f00;}
+        }
+    </style>
+    <div id="nav1" th:include="include/admin/navList1 :: nav1" style="margin-top:0px "></div>
+    <h1 id="title">进销存系统</h1>
+    </body>
+</html>

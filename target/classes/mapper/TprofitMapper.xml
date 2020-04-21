@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+	<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+		"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+	<!-- namespace表示命名空间,值必须为接口名称(包括包名)  -->
+	<!-- 实现类没有,mybaitn框架会生成接口的实现类 -->
+	<mapper namespace="com.springboot.demo.dao.TprofitMapper">
+	<!--public List<TprofitCode> selectAll();-->
+	<!--查询所有-->
+	<select id="selectAll" resultType="com.springboot.demo.vo.TprofitCode" >
+			select
+				tp.id id,
+				tp.tool_id toolId,
+				tt.code code,
+				tt.name name,
+				tp.profit profit,
+				tt.unitbase danwei,
+				tt.unitprice buyPrice,
+				ts.sale_price salePrice,
+				ts.sale_num saleNum
+			from
+				t_profit tp
+			join
+				t_tool tt
+			on
+				tp.tool_id = tt.id
+			join
+				t_sale ts
+			on
+				tp.sale_id = ts.id
+		</select>
+
+	<!--public int insert(Tprofit tprofit);-->
+	<insert id="insert" parameterType="com.springboot.demo.bean.Tprofit">
+			insert
+				into t_profit(tool_id,profit,sale_id)
+				values(#{toolId},#{profit},#{saleId})
+		</insert>
+
+
+	</mapper>
+	
+	
+	
+	
+	
+	
+	
+	
+	

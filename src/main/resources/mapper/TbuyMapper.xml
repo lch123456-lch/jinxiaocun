@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+	<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+		"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+	<!-- namespace表示命名空间,值必须为接口名称(包括包名)  -->
+	<!-- 实现类没有,mybaits框架会生成接口的实现类 -->
+	<mapper namespace="com.springboot.demo.dao.TbuyMapper">
+
+		<!--public List<TbuyCode> selectAll();-->
+		<!--查询所有-->
+		<select id="selectAll" resultType="com.springboot.demo.vo.TbuyCode" >
+			select
+				tb.id id,
+				tb.tool_id toolId,
+				tb.status status,
+				tb.buy_num buyNum,
+				tt.unitprice buyPrice,
+				tt.name name,
+				tt.code code,
+				tt.unitbase danwei
+			from
+				t_buy tb
+			left join
+				t_tool tt
+			on
+				tb.tool_id = tt.id
+			where tt.itemtype='外购件'
+		</select>
+
+	<!--public int delete(@Param("id") int id);-->
+	<!--删除数据-->
+	<delete id="delete"  parameterType="int">
+		delete
+			from
+				t_buy
+			where
+				id = #{id}
+	</delete>
+
+	<!--public int uptateState(int id);-->
+	<!--修改入库状态-->
+	<update id="uptateState"  parameterType="int">
+		update
+			t_buy
+		set
+			status=1
+		where
+			id = #{id}
+
+	</update>
+
+	<!--public Tbuy get(@Param("id") int id);-->
+	<!--获取数据-->
+	<select id="get" resultType="com.springboot.demo.bean.Tbuy">
+		select
+			id,
+			tool_id toolId,
+			status,
+			buy_num buyNum
+		from
+			t_buy
+		where
+			id = #{id}
+	</select>
+
+	<!--新增采购-->
+	<!--public int add(Tbuy tbuy);-->
+	<insert id="add" parameterType="com.springboot.demo.bean.Tbuy" >
+		insert
+			into
+				t_buy(tool_id,status,buy_num)
+			values(#{toolId},0,#{buyNum})
+	</insert>
+
+	</mapper>
+	
+	
+	
+	
+	
+	
+	
+	
+	

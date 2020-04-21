@@ -1,0 +1,224 @@
+/*listUser中设置的*/
+#userInfo_pageList{
+    width: 900px;
+    height: 300px;
+    margin: 0 auto;
+    margin-top : 50px ;
+}
+#pageNav{
+    position: absolute;
+    left: 700px;
+    bottom: 130px;
+}
+
+/*listCarMark中设置的*/
+#carMarkInfo_pageList{
+    width: 700px;
+    height: 300px;
+    margin: 0 auto;
+    margin-top : 50px ;
+}
+#pageNav1{
+    position: absolute;
+    left: 700px;
+    bottom: 100px;
+}
+
+
+
+/*一级汽车种类页面*/
+#carCategoryInfo_pageList{
+    width: 600px;
+    height: 300px;
+    margin: 0 auto;
+    margin-top : 100px ;
+}
+#pageNav2{
+    position: absolute;
+    left: 730px;
+    bottom: 300px;
+}
+
+#addStairCategory{
+    width: 370px;
+    height: 250px;
+    margin-left: 450px;
+}
+
+/*基本参数属性列表*/
+#basicParamPropertyValue_pageList{
+    width: 3000px;
+    height: 300px;
+}
+#pageNav3{
+    position: fixed;
+    left: 49%;
+    bottom: 90px;
+}
+
+/*汽车页面*/
+#carInfo_pageList{
+    width: 900px;
+    height: 300px;
+    margin: 0 auto;
+    margin-top : 80px ;
+}
+
+#pageNav4{
+    position: absolute;
+    left: 770px;
+    bottom: 300px;
+}
+#addcar{
+    width: 310px;
+    margin: 0 auto;
+    margin-top: -15px;
+
+}
+/*评论*/
+#review_List{
+    width: 1000px;
+    height: 300px;
+    margin: 0 auto;
+    margin-top : 80px ;
+}
+#pageNav5{
+    position: absolute;
+    left: 760px;
+    bottom: 150px;
+}
+/*登录页面的样式*/
+#cfUname{
+    color: #999;
+}
+
+#cfPwd{
+    color: #999;
+}
+.loginform {
+    width: 500px;
+    margin: 150px auto;
+    padding: 25px;
+    background-color: rgba(250,250,250,0.3);
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2),
+    inset 0px 1px 0px 0px rgba(250, 250, 250, 0.5);
+    border: 1px solid rgba(0, 0, 0, 0.3);
+}
+.loginform ul {
+    padding: 0;
+    margin-top:30px;
+    margin-left:100px;
+}
+
+.loginform li {
+    display: inline;
+}
+
+.loginform input{
+    width: 220px;
+    height: 30px;
+
+}
+#loginform_password{
+    display: block;
+    margin-top: 15px;
+}
+
+#loginform_title{
+    margin-left:60px ;
+    color: red;
+}
+
+#loginform_button{
+    margin-left: 80px;
+    margin-top: 20px;
+
+}
+/*导航栏设置*/
+body {
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+    font-family: "Microsoft Yahei", Verdana, Arial, Helvetica, sans-serif
+}
+#nav1{
+    position: absolute;
+    width: 223px;
+    height: 93%;
+    border: #bdd7f2 1px solid;
+    left: -10px;
+    margin-top: 0px;
+    background-color: #f4f9ff;
+}
+.leftMenu {
+    min-width:220px;
+    width:100px;
+    margin-top: 50px;
+}
+.menu {
+    border: #bdd7f2 1px solid;
+    margin-left: 10px;
+}
+.menu .ListTitle {
+    border-bottom: 1px #98c9ee solid;
+    display: block;
+    text-align: center;
+    /*position: relative;*/
+    height: 38px;
+    line-height: 38px;
+    cursor: pointer;
+    /*+min-width:220px;*/
+
++width:100%;
+}
+.ListTitlePanel {
+    position: relative;
+}
+.leftbgbt {
+    position: absolute;
+    width: 11px;
+    height: 52px;
+    left: -11px;
+    top: -4px;
+}
+/*.leftbgbt {
+    float:left;
+    background: url(images/leftbgbt.jpg) no-repeat;
+    width: 11px;
+    height: 52px;
+    left: 0px;
+    top: 0px;
+    zoom:1;
+    z-index:200px;
+}
+*/.leftbgbt2 {
+  position: absolute;
+  width: 11px;
+  height: 48px;
+  left: -11px;
+  top: -1px;
+}
+.menuList {
+    display: block;
+    height: auto;
+}
+.menuList div {
+    height: 28px;
+    line-height: 24px;
+    border-bottom: 1px #98c9ee dotted;
+}
+.menuList div a {
+    display: block;
+    background: #fff;
+    line-height: 28px;
+    height: 28px;
+    text-align: center;
+    color: #185697;
+    text-decoration: none;
+}
+.menuList div a:hover {
+    color: #f30;
+    background: #0080c4;
+    color: #fff;
+}

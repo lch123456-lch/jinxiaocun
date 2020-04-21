@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+		"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<!-- namespace表示命名空间,值必须为接口名称(包括包名)  -->
+<!-- 实现类没有,mybaits框架会生成接口的实现类 -->
+<mapper namespace="com.springboot.demo.dao.TsaleMapper">
+
+	<!--public List<TsaleCode> selectAll();-->
+	<!--查询所有-->
+	<select id="selectAll" resultType="com.springboot.demo.vo.TsaleCode" >
+			select
+				ts.id id,
+				ts.tool_id toolId,
+				ts.status status,
+				ts.sale_num saleNum,
+				ts.sale_price salePrice,
+				tt.name name
+			from
+				t_sale ts
+			left join
+				t_tool tt
+			on
+				ts.tool_id = tt.id
+			where tt.itemtype='自制件'
+		</select>
+
+	<!--public int delete(@Param("id") int id);-->
+	<!--删除数据-->
+	<delete id="delete"  parameterType="int">
+		delete
+			from
+				t_sale
+			where
+				id = #{id}
+	</delete>
+
+	<!--public int uptateState(int id);-->
+	<!--修改状态-->
+	<update id="uptateState"  parameterType="int">
+		update
+			t_sale
+		set
+			status=1
+		where
+			id = #{id}
+
+	</update>
+
+	<!--public Tsale get(@Param("id") int id);-->
+	<!--获取数据-->
+	<select id="get" resultType="com.springboot.demo.bean.Tsale">
+		select
+			id,
+			tool_id toolId,
+			status,
+			sale_num saleNum,
+			sale_price salePrice
+		from
+			t_sale
+		where
+			id = #{id}
+	</select>
+
+	<!--新增销售-->
+	<!--public int add(Tsale tsale);-->
+	<insert id="add" parameterType="com.springboot.demo.bean.Tsale" >
+		insert
+			into
+				t_sale(tool_id,status,sale_num,sale_price)
+			values(#{toolId},0,#{saleNum},#{salePrice})
+	</insert>
+
+
+</mapper>
+
+
+
+
+
+
+
+

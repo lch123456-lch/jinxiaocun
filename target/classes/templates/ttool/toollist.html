@@ -1,0 +1,124 @@
+<html  xmlns:th="http://www.thymeleaf.org">
+<head th:include="include/admin/adminHeader::html('物料清单列表')">
+</head>
+<body>
+<style>
+    #showImage{
+        margin-left: 40%;
+        margin-top: 25px
+    }
+    #updateImageOperate{
+        margin-left: 35%;
+        margin-top: 25px
+    }
+    #operateImage{
+        margin-top: 15px;
+        margin-left: 10px;
+    }
+    #operateImage a{
+        margin-left: 15px;
+    }
+</style>
+<script >
+    $(function () {
+        var dataVue = {
+            uri:'toolimport',
+            file:null,
+            pagination:{},
+            beans:[]
+        };
+        var vue = new Vue({
+            el : "#import",
+            data : dataVue,
+            mounted:function(){  //当vue加载成功执行它
+                this.list(1);
+            },
+            methods : {
+                add : function(){
+                    if(this.file == null ||this.file==''){
+                        alert("请选择excle表格");
+                        return;
+                    }
+                    var xls = $("#toolFile").val();
+                    if(xls.substring(xls.lastIndexOf("."),xls.length) == ".xlsx" || xls.substring(xls.lastIndexOf("."),xls.length) == ".xls") {
+                        var url = this.uri + "/import";
+                        var formData = new FormData();
+                        formData.append("file",this.file);
+                        axios.post(url,formData).then(function(response) {
+                            alert(response.data);
+                            location.reload();  //实现页面重新加载
+
+                        })
+                    }else{
+                        alert("请选择正确类型,导入excle表");
+                        return;
+                    }
+                },
+                /* 获取文件,赋值属性 */
+                getFile:function(event){
+                    this.file = event.target.files[0];
+
+                },
+                list : function(start){
+
+                    var url = "tnum/selectAllTnum?start="+start;
+                    axios.get(url).then(function(response) {
+                        vue.pagination=response.data;
+                        vue.beans=response.data.list;
+                        console.log(beans);
+                    });
+                },
+                jump : function (page) {
+                    jump(page,vue);    //点击左右两边跳转要么下一页要么最后一页,要么前一页要么第一页
+                },
+                jumpByNumber : function(start){
+                    jumpByNumber(start,vue); //显示出导航栏页数的跳转
+                }
+            }
+        })
+    });
+</script>
+<div id="nav1" th:include="include/admin/navList1 :: nav1" style="position:relative;top: 0px"></div>
+<div id="import" style="border: 1px solid #bdd7f2;width: 1325px;height: 900px;margin-top:-900px;margin-left: 210px ">
+    <div class="panel panel-default" style="width: 800px; position:relative; margin-left:inherit; margin-top: 50px">
+        <div class="panel-heading">导入物料excle表数据</div>
+        <div class="panel-body">
+            <div id="updateImageOperate">
+                <input id="toolFile"  type="file" name="tool" @change="getFile($event)" />
+                <div id="operateImage">
+                    <a href="#nowhere"  @click="add" class="btn btn-primary">提交</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="tnumInfo_pageList" style="margin-top:100px;width: 1000px;margin-left: 180px">
+        <table class="table table-striped table-bordered table-hover  table-condensed">
+            <thead>
+            <th>id</th>
+            <th>物料编号</th>
+            <th>物料名</th>
+            <th>单价</th>
+            <th>库存数量</th>
+            <th>最小单位</th>
+            <th>类型</th>
+            </thead>
+            <tbody>
+            <tr v-for='st in beans'>
+                <td>{{st.id}}</td>
+                <td>{{st.code}}</td>
+                <td>{{st.name}}</td>
+                <td>{{st.price}}</td>
+                <td>{{st.num}}</td>
+                <td>{{st.danwei}}</td>
+                <td>{{st.type}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div id="pageNav" style="margin-left: -100px">
+        <div  th:replace="include/admin/adminPage::html" ></div>
+    </div>
+</div>
+
+</body>
+</html>

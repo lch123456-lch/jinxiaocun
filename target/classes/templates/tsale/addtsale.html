@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="include/admin/adminHeader::html('添加销售单信息')"></head>
+<body>
+<script>
+    $(function () {
+        var dataVue = {
+            uri:'tsale',
+            bean:{toolId:0,saleNum:'',salePrice:''},
+            beans:[]
+        };
+        var vue = new  Vue({
+            el : '#addtsale',
+            data : dataVue,
+            mounted:function(){  //当vue加载成功执行它
+                this.getxiaoshou();
+            },
+            methods : {
+                getxiaoshou : function(){ //获取所有物料信息
+                    var url = this.uri + "/getxiaoshou";
+                    axios.get(url).then(function(response) {
+                        vue.beans  = response.data;
+                    });
+                },
+                //添加信息
+                addTsale : function(){
+                    var url = this.uri + '/add';
+                    axios.post(url,vue.bean).then(function(response){
+                        alert(response.data);
+
+                    });
+                }
+            }
+        });
+    });
+</script>
+<div id="nav1" th:include="include/admin/navList1 :: nav1" style="margin-top: -51px"></div>
+<div id="addtsale" style="border: 1px solid #bdd7f2;width: 1325px;height: 665px;margin-top:53px;margin-left: 210px ">
+    <div class="panel panel-default" style=" width: 800px;margin: 0 auto;margin-top: 100px">
+        <div class="panel-heading">添加销售单信息</div>
+        <div class="panel-body">
+            <table   width="700px" height="400px">
+                <tr>
+                    <td>销售组件:</td>
+                    <td>
+                        <select v-model="bean.toolId">
+                            <option v-for="b in beans" :value="b.id">{{b.name}}</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>销售数量: </td>
+                    <td align="center"><input type="text" class="form-control"  v-model = "bean.saleNum"> </td>
+                </tr>
+                <tr>
+                    <td>销售单价: </td>
+                    <td align="center"><input type="text" class="form-control"  v-model = "bean.salePrice"> </td>
+                </tr>
+                <tr >
+                    <td style="position: absolute;left: 800px"><button type="button" class="btn btn-sm" @click="addTsale()">提交</button></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

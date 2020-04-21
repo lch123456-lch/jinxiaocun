@@ -1,0 +1,72 @@
+<html  xmlns:th="http://www.thymeleaf.org">
+<head th:include="include/admin/adminHeader::html('利润列表')">
+</head>
+<body>
+<script>
+    $(function(){
+        var dataVue={
+            uri:"tprofit",
+            pagination:{},
+            beans:[]
+        };
+        var vue = new Vue({
+            el:"#tprofitInfo",
+            data:dataVue,
+            mounted:function(){  //当vue加载成功执行它
+                this.list(1);
+            },
+            methods : {
+                //获取信息
+                list : function(start){
+
+                    var url = this.uri + "/selectAllTprofit?start="+start;
+                    axios.get(url).then(function(response) {
+                        vue.pagination=response.data;
+                        vue.beans=response.data.list;
+                    });
+                },
+                jump : function (page) {
+                    jump(page,vue);    //点击左右两边跳转要么下一页要么最后一页,要么前一页要么第一页
+                },
+                jumpByNumber : function(start){
+                    jumpByNumber(start,vue); //显示出导航栏页数的跳转
+                }
+            }
+        });
+    });
+</script>
+<div id="nav1" th:include="include/admin/navList1 :: nav1" style="position:relative;top: 0px"></div>
+<div id="tprofitInfo" style="position:relative;top: -660px;border: 1px solid #bdd7f2;width: 1325px;height: 640px;margin-left: 215px ">
+
+    <div id="tprofitInfo_pageList" style="margin-top:100px;width: 1000px;margin-left: 180px">
+        <table class="table table-striped table-bordered table-hover  table-condensed">
+            <thead>
+                <th>id</th>
+                <th>销售组件编号</th>
+                <th>销售组件名称</th>
+                <th>销售数量</th>
+                <th>单位</th>
+                <th>成本</th>
+                <th>销售价格</th>
+                <th>利润</th>
+            </thead>
+            <tbody>
+            <tr v-for='p in beans'>
+                <td>{{p.id}}</td>
+                <td>{{p.code}}</td>
+                <td>{{p.name}}</td>
+                <td>{{p.saleNum}}</td>
+                <td>{{p.danwei}}</td>
+                <td>{{p.buyPrice}}</td>
+                <td>{{p.salePrice}}</td>
+                <td>{{p.profit}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div id="pageNav" style="margin-left: -100px">
+        <div  th:replace="include/admin/adminPage::html" ></div>
+    </div>
+</div>
+</body>
+</html>

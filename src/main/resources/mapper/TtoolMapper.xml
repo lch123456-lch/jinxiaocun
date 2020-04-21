@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+	<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+		"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+	<!-- namespace表示命名空间,值必须为接口名称(包括包名)  -->
+	<!-- 实现类没有,mybaits框架会生成接口的实现类 -->
+	<mapper namespace="com.springboot.demo.dao.TtoolMapper">
+		<!--public List<Ttool> listIdAndName();-->
+		<!--获取采购物料id和名称-->
+		<select id="listIdAndName" resultType="com.springboot.demo.bean.Ttool">
+			select
+				id,
+				name
+			from
+				t_tool tt
+			where tt.itemtype='外购件'
+		</select>
+	<!--获取销售组件id和名称-->
+	<select id="listIdAndName2" resultType="com.springboot.demo.bean.Ttool">
+			select
+				id,
+				name
+			from
+				t_tool tt
+			where tt.code='I5001' or tt.code='I7001'
+		</select>
+	<!--public Ttool get(@Param("id") int id);-->
+	<!--获取数据-->
+	<select id="get" resultType="int">
+		select
+			unitprice buyPrice
+		from
+			t_tool
+		where
+			id = (SELECT t_sale.tool_id from t_sale where id=#{id})
+	</select>
+	<!--插入数据-->
+	<insert id="insertTool" parameterType="com.springboot.demo.bean.Ttool">
+			insert
+			into
+				t_tool(code,name,unitbase,unitprice,itemtype)
+			values(#{code},#{name},#{unitbase},#{unitprice},#{itemtype})
+	</insert>
+	<!--根据名称获取id-->
+	<select id="selectIdByName" resultType="int">
+		select
+    		id
+		from
+   			t_tool
+		where
+  			t_tool.name=#{name}
+		order by id desc
+			limit 1
+
+	</select>
+	</mapper>
+	
+	
+	
+	
+	
+	
+	
+	
+	

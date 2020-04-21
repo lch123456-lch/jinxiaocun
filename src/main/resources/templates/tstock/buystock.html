@@ -1,0 +1,91 @@
+<html  xmlns:th="http://www.thymeleaf.org">
+<head th:include="include/admin/adminHeader::html('采购列表')">
+</head>
+<body>
+<script>
+    $(function(){
+        var dataVue={
+            uri:"tbuy",
+            pagination:{},
+            beans:[]
+        };
+        var vue = new Vue({
+            el:"#tbuyInfo",
+            data:dataVue,
+            mounted:function(){  //当vue加载成功执行它
+                this.list(1);
+            },
+            methods : {
+                //获取信息
+                list : function(start){
+
+                    var url = this.uri + "/selectAllTbuy?start="+start;
+                    axios.get(url).then(function(response) {
+                        vue.pagination=response.data;
+                        vue.beans=response.data.list;
+                    });
+                },
+                deleteBean : function (id) {
+                    var url = this.uri + "/delete?id="+id;
+                    if (checkDeleteLink()){
+                        axios.get(url).then(function(response) {
+                            location.reload();
+                        });
+                    }
+                },
+                instorge : function(id){ //入库
+                    var url = this.uri + "/instorge?id="+id;
+                    axios.get(url).then(function(response) {
+                        alert(response.data);
+                        location.reload();
+                    });
+                },
+                jump : function (page) {
+                    jump(page,vue);    //点击左右两边跳转要么下一页要么最后一页,要么前一页要么第一页
+                },
+                jumpByNumber : function(start){
+                    jumpByNumber(start,vue); //显示出导航栏页数的跳转
+                }
+            }
+        });
+    });
+</script>
+<div id="nav1" th:include="include/admin/navList1 :: nav1" style="position:relative;top: 0px"></div>
+<div id="tbuyInfo" style="position:relative;top: -660px;border: 1px solid #bdd7f2;width: 1425px;height: 640px;margin-left: 215px ">
+
+    <div id="tbuyInfo_pageList" style="margin-top:100px;width: 1000px;margin-left: 180px">
+        <table class="table table-striped table-bordered table-hover  table-condensed">
+            <thead>
+                <th>id</th>
+                <th>操作</th>
+                <th>是否入库</th>
+                <th>物料编号</th>
+                <th>物料名</th>
+                <th>采购单价</th>
+                <th>采购数量</th>
+                <th>单位</th>
+            </thead>
+            <tbody>
+            <tr v-for='b in beans'>
+                <td>{{b.id}}</td>
+                <td>
+                    <a href="#"  @click="instorge(b.id)" v-if="b.status==0" style="text-decoration:none">入库</a>
+                    <a href="#"  @click="deleteBean(b.id)"  style="text-decoration:none">删除</a>
+                </td>
+                <td v-if='b.status==1'>已入库</td>
+                <td v-if='b.status==0'>未入库</td>
+                <td>{{b.code}}</td>
+                <td>{{b.name}}</td>
+                <td>{{b.buyPrice}}</td>
+                <td>{{b.buyNum}}</td>
+                <td>{{b.danwei}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div id="pageNav" style="margin-left: -100px">
+        <div  th:replace="include/admin/adminPage::html" ></div>
+    </div>
+</div>
+</body>
+</html>

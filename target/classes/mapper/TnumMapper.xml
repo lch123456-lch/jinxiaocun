@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+	<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+		"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+	<!-- namespace表示命名空间,值必须为接口名称(包括包名)  -->
+	<!-- 实现类没有,mybaitn框架会生成接口的实现类 -->
+	<mapper namespace="com.springboot.demo.dao.TnumMapper">
+	<!--public List<TnumCode> selectAll();-->
+	<!--查询所有-->
+	<select id="selectAll" resultType="com.springboot.demo.vo.TnumCode" >
+			select
+				tn.id id,
+				tn.tool_id toolId,
+				tt.code code,
+				tt.name name,
+				tn.number num,
+				tt.unitbase danwei,
+				tt.unitprice price,
+				tt.itemtype type
+			from
+				t_num tn
+			left join
+				t_tool tt
+			on
+				tn.tool_id = tt.id
+		</select>
+
+	<!--public int insert(Tnum tnum);-->
+	<insert id="insert" parameterType="com.springboot.demo.bean.Tnum">
+			insert
+				into t_num(tool_id,number)
+				values(#{toolId},#{number})
+		</insert>
+
+	<!--public Tnum select(@Param("toolId") int toolId);-->
+	<!--查询是否存在指定物料-->
+	<select id="select"	resultType="com.springboot.demo.bean.Tnum">
+			select
+				id,
+				tool_id toolId,
+				number
+			from
+				t_num
+			where
+				tool_id = #{toolId}
+		</select>
+
+	<!--public int update(Tnum tnum);-->
+	<!--修改-->
+	<update id="update" parameterType="com.springboot.demo.bean.Tnum">
+			update
+				t_num
+			set
+				number = #{number}
+			where
+				id = #{id}
+		</update>
+	</mapper>
+	
+	
+	
+	
+	
+	
+	
+	
+	

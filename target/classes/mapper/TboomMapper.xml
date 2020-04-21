@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+	<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+		"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+	<!-- namespace表示命名空间,值必须为接口名称(包括包名)  -->
+	<!-- 实现类没有,mybaits框架会生成接口的实现类 -->
+	<mapper namespace="com.springboot.demo.dao.TboomMapper">
+	<!--public List<TboomCode> selectAll();-->
+	<!--查询所有-->
+	<select id="selectAll" resultType="com.springboot.demo.bean.Tboom" >
+			select
+				tb.id id,
+				tb.parentcode parentCode,
+				tb.childcode childName,
+				tb.Quantity num,
+				tb.unitname danwei
+			from
+				t_boom tb
+
+		</select>
+	</mapper>
+	
+	
+	
+	
+	
+	
+	
+	
+	
