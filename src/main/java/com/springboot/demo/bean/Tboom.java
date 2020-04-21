@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Tboom {
-
     private int id;
     private String parentCode;  //父项物料编号
     private String childName; //子项物料名称
