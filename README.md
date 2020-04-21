@@ -1,2 +1,3 @@
-# jinxiaocun
+# 进销存管理系统
+采用框架和技术：springboot+vue+bootstrap+mybatis+mysql
 这是一个进销存管理系统，主要是进行对一个店铺的商品进货出货的管理。模块有采购管理，销售管理，库存管理，利润管理，基础管理。
